@@ -1,6 +1,7 @@
 {
     "filename": "0m.xlsx",
     "valid": true,
+	"Depth (m)": 0,
     "campaign": {
         "Campaign Name": "Mooring Nicole Russo",
         "Device": "HOBO Water Temperature Pro",
