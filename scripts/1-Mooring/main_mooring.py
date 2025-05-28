@@ -61,7 +61,10 @@ for k,file in enumerate(files):
  
 #%% Load L2 files and interpolate to grid
 temp_grid = thermistor_grid()
-files_L2=os.listdir(os.path.join(input_folder, "Level2"))
+files_L2=[]
+for f in os.listdir(os.path.join(input_folder, "Level2")):
+    if file.endswith(".nc"):
+        files_L2.append(f)
 # tnum_files=[None]*len(files_L2)
 # for k,f in enumerate(files_L2):
 #     ind_dash=[i for i, c in enumerate(f) if c == "_"]
@@ -74,14 +77,4 @@ temp_grid.add_grid(data_grid,meta)
 print("Export to L3 netCDF file")
 export(temp_grid,os.path.join(input_folder, "Level3"), "L3_mooring", overwrite=True) # Create Level 3 file      
 
-#%% Interpolated Visualization
-depth_interp=np.arange(data_grid["depth"][0],data_grid["depth"][-1],0.1)
-temp_interp=np.full((len(depth_interp),len(data_grid["time"])),np.nan)
-for kt in range(len(data_grid["time"])):
-    temp_interp[:,kt]=np.interp(depth_interp,data_grid["depth"],data_grid["temp"][:,kt])
-
-import matplotlib.pyplot as plt
-plt.figure()
-plt.pcolormesh(data_grid["time"].astype("datetime64[s]").astype(datetime),depth_interp,temp_interp)
-plt.gca().invert_yaxis()
     
