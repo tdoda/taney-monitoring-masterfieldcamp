@@ -1,6 +1,10 @@
 # Taney_Monitoring_MasterFieldCamp
 
-Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne
+Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne.
+
+Online repository:
+- Renku session: https://renkulab.io/projects/tomy.doda/taney-monitoring-masterfieldcamp/sessions/new?autostart=1
+- Gitlab: https://gitlab.renkulab.io/tomy.doda/taney-monitoring-masterfieldcamp.git 
 
 ## Introduction
 
