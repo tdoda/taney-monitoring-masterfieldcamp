@@ -22,3 +22,7 @@ dependencies:
   - ipympl
   - scipy
   - cmocean
+  - seawater
+  - envass 
+  - pyrsktools
+  - dateparser
