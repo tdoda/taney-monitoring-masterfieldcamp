@@ -15,7 +15,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 
 def create_file_list(path):
-    filetypes = {".tob": "sea&sun", ".rsk": "rbr", ".cnv": "seabird"}
+    filetypes = {".tob": "sea&sun", ".rsk": "rbr", ".cnv": "seabird", ".xlsx": "exo"}
     file_groups = {}
     files = []
     for file in os.listdir(path):
@@ -89,7 +89,7 @@ def read_rbr(file_path):
         for column in rsk.channelNames:
             if column in column_conversion:
                 df[column_conversion[column]] = rsk.data[column]
-        df["time"] = df["time"].dt.tz_localize('UTC').astype(int) // 10 ** 3
+        df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
 
         rsk.computeprofiles()
         downcast = rsk.getprofilesindices(direction="down")
@@ -626,7 +626,11 @@ def contiguous_regions(condition):
     idx.shape = (-1, 2)
     return idx
 
-
+def create_folder(input_folder,output_folder):
+    if os.path.exists(os.path.join(input_folder, output_folder)):
+        print("Folder {} already exists: delete it".format(output_folder))
+        shutil.rmtree(os.path.join(input_folder, output_folder))
+    os.makedirs(os.path.join(input_folder, output_folder))
     
     
 

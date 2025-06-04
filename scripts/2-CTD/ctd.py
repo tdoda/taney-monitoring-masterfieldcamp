@@ -13,7 +13,7 @@ import functions_ctd as func
 
 
 class CTD:
-    def __init__(self, logger):
+    def __init__(self):
         self.general_attributes = {
             "institution": "Eawag",
             "source": "SURF CTD",
@@ -60,7 +60,6 @@ class CTD:
         self.altitude = False
         self.data = {}
         self.filename = False
-        self.logger = logger
 
     def read_profile(self, profile):
         self.filename = profile["file"]
