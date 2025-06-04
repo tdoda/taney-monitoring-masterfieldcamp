@@ -15,7 +15,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 
 
 def create_file_list(path):
-    filetypes = {".tob": "sea&sun", ".rsk": "rbr", ".cnv": "seabird", ".xlsx": "exo"}
+    filetypes = {".tob": "sea&sun", ".rsk": "rbr", ".cnv": "seabird", ".csv": "exo"}
     file_groups = {}
     files = []
     for file in os.listdir(path):
@@ -43,6 +43,8 @@ def read_data(file_path, file_type):
         profiles = read_rbr(file_path)
     elif file_type == "seabird":
         profiles = read_seabird(file_path)
+    elif file_type == "exo":
+        profiles = read_exo(file_path)
     else:
         raise ValueError("File type not recognised: {}".format(file_type))
     return profiles
@@ -100,6 +102,50 @@ def read_rbr(file_path):
             air_pressure = np.nanmean(pressure[air_idx])
 
     profiles = casts_to_profiles(df, downcast, upcast, file_path, "RBR", air_pressure)
+    if len(profiles) == 0:
+        return False
+    else:
+        return profiles
+    
+def read_exo(file_path):
+    column_conversion = {
+        "PRESSURE PSI A": "Press",
+        "TEMP °C": "Temp",
+        "COND ΜS/CM": "Cond",
+        "ODO % CB": "sat",
+        "ODO MG/L": "DO_mg",
+    }
+    air_pressure = False
+    
+    try:
+        data_exo=pd.read_csv(file_path,skiprows=9,sep=",",parse_dates=[["Date (MM/DD/YYYY)","Time (HH:mm:ss)"]],encoding='utf-16')
+    except:
+        data_exo=pd.read_csv(file_path,skiprows=9,sep=",",parse_dates=[["DATE (MM/DD/YYYY)","TIME (HH:MM:SS)"]],encoding='utf-16') 
+    # Put column names in uppercase:
+    colnames=list(data_exo.columns)
+    for k in range(len(colnames)):
+        colnames[k]=colnames[k].upper()
+    data_exo.columns=colnames
+
+    tdate=data_exo.iloc[:,0].to_numpy().astype('datetime64[s]').astype(datetime)
+    tnum=data_exo.iloc[:,0].to_numpy().astype('datetime64[s]').astype(np.int64)
+
+    # Order chronologically
+    # ind_sort=np.argsort(tnum)
+    # tdate=tdate[ind_sort]
+    # tnum=tnum[ind_sort]
+    # for coln in colnames:
+    #     data_exo[coln]=data_exo[coln][ind_sort]
+    
+    df = pd.DataFrame({"time":tnum})
+        
+    for column in colnames:
+        if column in column_conversion:
+            df[column_conversion[column]] = data_exo[column]
+
+    downcast, upcast, air_pressure = extract_single_profile(df)        
+    profiles = casts_to_profiles(df, downcast, upcast, file_path, "EXO", air_pressure)
+    
     if len(profiles) == 0:
         return False
     else:
