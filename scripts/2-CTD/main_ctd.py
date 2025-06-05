@@ -11,7 +11,7 @@ from functions_ctd import create_file_list, copy_files, read_data, process_profi
 date_campaign='20250605'
 
 # For RBR profiles:
-ctd_data_folder='..\..\data\Profiles\RBR_237207'
+ctd_data_folder='..\..\data\Profiles\RBR_66131'
 extensions = [".rsk"]
 
 # For EXO profiles:
