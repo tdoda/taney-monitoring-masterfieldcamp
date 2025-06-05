@@ -76,7 +76,7 @@ class CTD:
             with open(meta_path) as f:
                 meta = json.load(f)
             if "valid" in meta and not meta["valid"]:
-                print("Profile {} marked invalid, not processing.".format(profile["name"]))
+                self.logger.warning("Profile {} marked invalid, not processing.".format(profile["name"]))
                 return False
             for key in meta["campaign"]:
                 if isinstance(meta["campaign"][key], bool):
@@ -105,7 +105,7 @@ class CTD:
                 self.altitude = float(self.general_attributes["Altitude (m)"])
             return True
         else:
-            print("{} not found.".format(meta_path))
+            self.logger.warning("{} not found.".format(meta_path))
             return False
 
     def quality_assurance(self, file_path, simple=True):
@@ -124,11 +124,15 @@ class CTD:
                         quality_assurance_all = dict(quality_assurance_dict[key]["simple"], **quality_assurance_dict[key]["advanced"])
                         self.data[name] = qualityassurance(np.array(self.data[key]), np.array(self.data["time"]), **quality_assurance_all)
                     if key != "time":
-                        #******************************************************
-                        # Remove useless parts of the profile here:
-                        continue
-                        #******************************************************
-                        
+                        if self.bottom_profile_index:
+                            self.data[name][self.bottom_profile_index:] = 1
+                        if self.start_profile_index:
+                            self.data[name][:self.start_profile_index] = 1
+                        if self.start_pressure:
+                            self.data[name][self.data["Press"] > self.start_pressure] = 1
+                        if self.end_pressure:
+                            self.data[name][self.data["Press"] < self.end_pressure] = 1
+
     def export(self, folder, title, output_period="file", time_label="time", profile_to_grid=False, overwrite=False):
         if profile_to_grid:
             variables = self.grid_variables
@@ -159,7 +163,7 @@ class CTD:
             file_start = time_min.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
             file_period = relativedelta(year=+1)
         else:
-            print('Output period "{}" not recognised.'.format(output_period))
+            self.logger.warning('Output period "{}" not recognised.'.format(output_period))
             return
 
         if not os.path.exists(folder):
@@ -226,11 +230,11 @@ class CTD:
                                         elif len(values["dim"]) == 2 and values["dim"][1] == time_label:
                                             nc.variables[key][:, idx] = data[key]
                                         else:
-                                            print("Unable to write {} with {} dimensions.".format(key, len(
+                                            self.logger.warning("Unable to write {} with {} dimensions.".format(key, len(
                                                 values["dim"])))
     
                             else:
-                                print("Grid data already exists in NetCDF, skipping.")
+                                self.logger.warning("Grid data already exists in NetCDF, skipping.")
                         else:
                             idx = func.position_in_array(nc_time, time[0])
                             nc.variables[time_label][:] = np.insert(nc_time, idx, time[0])
@@ -250,11 +254,11 @@ class CTD:
                                         else:
                                             var[:, idx] = data[key]
                                     else:
-                                        print(
+                                        self.logger.warning(
                                             "Unable to write {} with {} dimensions.".format(key, len(values["dim"])))
                     else:
                         if np.all(np.isin(time, nc_time)) and not overwrite:
-                            print("Data already exists in NetCDF, skipping.")
+                            self.logger.warning("Data already exists in NetCDF, skipping.")
                         else:
                             non_duplicates = ~np.isin(time, nc_time)
                             valid = np.logical_and(valid_time, non_duplicates)
@@ -297,12 +301,7 @@ class CTD:
             if "_qual" not in var:
                 idx = data[var + "_qual"] > 0
                 data[var][idx] = np.nan
-        #**********************************************************************
-        # Add adjusted pressure here:
-            
-        data["adj_press"] = data["Press"] 
-            
-        #**********************************************************************
+        data["adj_press"] = data["Press"] - self.air_pressure # Atmospheric pressure is computed from measurements in the air in function extract_single_profile
         threshold = data["Temp"].shape[0] * 0.9
         if sum(np.isnan(data["Temp"])) > threshold or sum(np.isnan(data["Cond"])) > threshold or \
                 sum(np.isnan(data["adj_press"])) > threshold:
@@ -313,33 +312,32 @@ class CTD:
         self.data["SALIN"] = func.salinity(data["Temp"], data["Cond"], y_cond, temperature_func=func.default_salinity_temperature)
         self.data["rho"] = np.asarray([1000] * len(data["Press"]))
         self.data["rho"] = func.density(data["Temp"], self.data["SALIN"])
-        
-        #**********************************************************************
-        # Add depth computation here:
-        
-        #self.data["depth"]=... 
-            
-        #**********************************************************************
-        
+        self.data["depth"] = 1e4 * data["adj_press"] / self.data["rho"] / sw.g(self.latitude)
 
         try:
             self.data["pt"] = func.potential_temperature_sw(data["Temp"], self.data["SALIN"], data["adj_press"], 0)
         except Exception:
             self.data["pt"] = np.asarray([np.nan] * len(data["time"]))
-            print("Failed to calculate potential temperature")
+            self.logger.warning("Failed to calculate potential temperature")
 
         try:
             self.data["prho"] = func.density(self.data["pt"], self.data["SALIN"])
         except Exception:
             self.data["prho"] = np.asarray([np.nan] * len(data["time"]))
-            print("Failed to calculate potential density")
+            self.logger.warning("Failed to calculate potential density")
 
         try:
             theoretical_saturation = func.oxygen_saturation(self.data["pt"], self.data["SALIN"], self.altitude, self.latitude)
             self.data["sat"] = (self.data["DO_mg"] / theoretical_saturation) * 100
         except Exception:
-            print("Failed to replace oxygen saturation")
+            self.logger.warning("Failed to replace oxygen saturation")
 
+        # try:
+        #     sorted_pt = np.argsort(self.data["pt"])[::-1]
+        #     self.data["thorpe"] = -(self.data["depth"] - self.data["depth"][sorted_pt])
+        # except Exception:
+        #     self.data["thorpe"] = np.asarray([np.nan] * len(data["time"]))
+        #     self.logger.warning("Failed to calculate Thorpe Displacements")
 
     def get_lake(self):
         return self.general_attributes["Lake"].replace(" ", "").lower()

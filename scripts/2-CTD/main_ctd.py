@@ -8,16 +8,15 @@ from functions_ctd import create_file_list, copy_files, read_data, process_profi
 
 #%% Specify field campaign here:
 
-# date_campaign='Example_RBR_205750'
-date_campaign='Example_EXO'
+date_campaign='20250605'
 
 # For RBR profiles:
-# ctd_data_folder='..\..\data\Profiles\RBR_Concerto'
-# extensions = [".rsk"]
+ctd_data_folder='..\..\data\Profiles\RBR_237207'
+extensions = [".rsk"]
 
 # For EXO profiles:
-ctd_data_folder='..\..\data\Profiles\EXO'
-extensions = [".csv"]
+# ctd_data_folder='..\..\data\Profiles\EXO'
+# extensions = [".csv"]
 
 #%% Other parameters
 
@@ -38,7 +37,6 @@ for file in files:
         print("Failed to process {}".format(file["path"]))
         continue
     for profile in profiles:
-        breakpoint()
         if os.path.isfile(os.path.join(os.path.dirname(file["path"]), profile["name"] + ".meta")):
             print("Processing profile {}".format(profile["name"]))
             ctd = CTD()
@@ -48,7 +46,7 @@ for file in files:
                 ctd.export(os.path.join(input_folder, "Level1"), "L1_CTD_{}_{}".format(file["type"], file_name),overwrite=True)
                 ctd.mask_data() # Replace flagged data by nan 
                 ctd.derive_variables() # Compute additional variables to add to Level 2
-                #ctd.export(os.path.join(input_folder, "Level2"), "L2_CTD_{}_{}".format(file["type"], file_name), overwrite=True) # Create Level 2 file      
+                ctd.export(os.path.join(input_folder, "Level2"), "L2_CTD_{}_{}".format(file["type"], file_name), overwrite=True) # Create Level 2 file      
                 
         else:
             print("No metadata for profile {}".format(profile["name"]))
