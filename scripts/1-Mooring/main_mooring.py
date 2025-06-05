@@ -17,8 +17,8 @@ from functions_mooring import read_data, export, create_temp_grid, create_folder
 
 # date_campaign='20240527'
 # date_campaign='20240910'
-date_campaign='20241126'
-
+#date_campaign='20241126'
+date_campaign='20250604'
 #%% Setup paths
 
 mooring_data_folder='..\..\data\Mooring\HOBO_T'
@@ -63,7 +63,7 @@ for k,file in enumerate(files):
 temp_grid = thermistor_grid()
 files_L2=[]
 for f in os.listdir(os.path.join(input_folder, "Level2")):
-    if file.endswith(".nc"):
+    if f.endswith(".nc"):
         files_L2.append(f)
 # tnum_files=[None]*len(files_L2)
 # for k,f in enumerate(files_L2):
