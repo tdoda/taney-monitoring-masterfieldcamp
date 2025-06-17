@@ -58,7 +58,10 @@ class CTD:
         self.data = {}
         self.filename = False
 
-    def read_profile(self, profile):
+    def read_profile(self, profile,profilemeta=None):
+        if not profilemeta:
+            profilemeta=profile["name"] + ".meta"
+        meta_path = os.path.join(profile["folder"],profilemeta)
         self.filename = profile["file"]
         df = profile["data"]
         for variable in self.variables:
@@ -70,8 +73,7 @@ class CTD:
             self.bottom_profile_index = profile["bottom_index"]
         if "air_pressure" in profile:
             self.air_pressure = profile["air_pressure"]
-
-        meta_path = os.path.join(profile["folder"], profile["name"] + ".meta")
+  
         if os.path.exists(meta_path):
             with open(meta_path) as f:
                 meta = json.load(f)
