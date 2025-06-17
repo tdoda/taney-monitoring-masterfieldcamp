@@ -37,6 +37,13 @@ for file in files:
         print(e)
         print("Failed to process {}".format(file["path"]))
         continue
+    
+    list_metafiles=[f for f in os.listdir(os.path.join(os.path.dirname(file["path"]))) if f.endswith(".meta") and profiles[0]["name"] in f]
+    if len(list_metafiles)>len(profiles):
+        print("**** WARNING: more meta files than detected profiles! ****") 
+    elif len(list_metafiles)<len(profiles):
+        print("**** WARNING: not all detected profiles avec metadata! ****") 
+        
     for profile in profiles:
         if os.path.isfile(os.path.join(os.path.dirname(file["path"]), profile["name"] + ".meta")):
             print("Processing profile {}".format(profile["name"]))
