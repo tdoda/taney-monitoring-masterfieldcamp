@@ -36,11 +36,11 @@ def create_file_list(path):
     return files
 
 
-def read_data(file_path, file_type):
+def read_data(file_path, file_type,DO_umol=False):
     if file_type == "sea&sun":
         profiles = read_sea_and_sun(file_path)
     elif file_type == "rbr":
-        profiles = read_rbr(file_path)
+        profiles = read_rbr(file_path,DO_umol)
     elif file_type == "seabird":
         profiles = read_seabird(file_path)
     elif file_type == "exo":
@@ -74,7 +74,7 @@ def read_sea_and_sun(file_path):
         return profiles
 
 
-def read_rbr(file_path):
+def read_rbr(file_path,DO_umol):
     column_conversion = {
         "timestamp": "time",
         "pressure": "Press",
@@ -91,6 +91,8 @@ def read_rbr(file_path):
         for column in rsk.channelNames:
             if column in column_conversion:
                 df[column_conversion[column]] = rsk.data[column]
+        if DO_umol: # Convert from umol/l to mg/L
+            df["DO_mg"]=df["DO_mg"]*32/1000
         df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
 
         rsk.computeprofiles()

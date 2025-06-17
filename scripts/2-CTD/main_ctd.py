@@ -13,6 +13,7 @@ date_campaign='20250605'
 # For RBR profiles:
 ctd_data_folder='..\..\data\Profiles\RBR_66131'
 extensions = [".rsk"]
+DO_umol=True # Do data is in umol/l and needs to be converted to mg/l
 
 # For EXO profiles:
 # ctd_data_folder='..\..\data\Profiles\EXO'
@@ -31,7 +32,7 @@ metadata_required=[]
 for file in files:
     print("Processing file {}".format(file["path"]))
     try:
-        profiles = read_data(file["path"], file["type"])
+        profiles = read_data(file["path"], file["type"],DO_umol)
     except Exception as e:
         print(e)
         print("Failed to process {}".format(file["path"]))
