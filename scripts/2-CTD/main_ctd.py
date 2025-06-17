@@ -11,6 +11,7 @@ from functions_ctd import create_file_list, copy_files, read_data, process_profi
 #%% Specify field campaign here:
 
 date_campaign='20250605'
+date_min=datetime(2025,6,5,12,0,0) # Minimum device time
 
 # For RBR profiles:
 ctd_data_folder='..\..\data\Profiles\RBR_237207'
@@ -40,13 +41,20 @@ for file in files:
         print("Failed to process {}".format(file["path"]))
         continue
     
-    list_metafiles=[f for f in os.listdir(os.path.join(os.path.dirname(file["path"]))) if f.endswith(".meta") and profiles[0]["name"] in f]
+    # Remove profiles before device time
+    ind_rem=[]
+    for kp,profile in enumerate(profiles):
+        if profile["data"]["time"].iloc[0]<(date_min.replace(tzinfo=timezone.utc).timestamp()):
+            ind_rem.append(kp)
+    profiles = [prof for kp, prof in enumerate(profiles) if kp not in ind_rem]
+    
+    list_metafiles=[f for f in os.listdir(os.path.join(os.path.dirname(file["path"]))) if f.endswith(".meta") and file["basename"] in f]
     search_meta=False
     if len(list_metafiles)>len(profiles):
         print("**** WARNING: more meta files than detected profiles! ****") 
         search_meta=True
     elif len(list_metafiles)<len(profiles):
-        print("**** WARNING: not all detected profiles avec metadata! ****")
+        print("**** WARNING: not all detected profiles have metadata! ****")
         search_meta=True
         
     if search_meta: # List profiling time from all metadata files
