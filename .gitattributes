@@ -3,4 +3,5 @@
 *.txt filter=lfs diff=lfs merge=lfs -text
 *.xlsx filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
+*.nc*[[:space:]]*.rsk* filter=lfs diff=lfs merge=lfs -text
 *.rsk filter=lfs diff=lfs merge=lfs -text
