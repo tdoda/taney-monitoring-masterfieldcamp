@@ -3,6 +3,8 @@ import os
 import json
 import numpy as np
 from datetime import datetime
+import pandas as pd
+
 
 
 # FUuction to transform ch1093 to lat/ton
@@ -57,6 +59,14 @@ class meteo_series:
         self.filename = data_meteo["file"]
         file_noext = self.filename.rsplit('.', 1)[0]
         df = data_meteo["data"]
+
+        # COnvert timeseries to timestamp in seconds
+        if "UTC_time" in df.columns:
+            df["time"] = df["UTC_time"].apply(lambda x: x.timestamp() if pd.notnull(x) else np.nan)
+            self.data["time"] = np.array(df["time"].values)
+        else:
+            raise ValueError("Missing UTC_time column in input data.")
+
 
         # Load data columns
         for variable in self.variables:

@@ -32,7 +32,11 @@ else:
     raise Exception("Metadata file not found!")
 
 #%% Read the data files
-files = np.array(meta["filename"])[meta["valid"]]  
+if isinstance(meta["filename"], list):
+    files = np.array(meta["filename"])[meta["valid"]]
+else:
+    files = [meta["filename"]] if meta["valid"] else []
+
 
 for k, file in enumerate(files):
     try:
@@ -43,7 +47,7 @@ for k, file in enumerate(files):
         continue
     
     met_series = meteo_series()
-    if met_series.read_timeseries({"data": data_temp, "file": file, "folder": input_folder}, meta):
+    if met_series.read_timeseries(data_temp, meta):
         file_name = file.rsplit('.', 1)[0]
         print(f"Export to L1 netCDF file: L1_meteo_{file_name}.nc")
         export(met_series, os.path.join(meteo_data_folder, "Level1"), f"L1_meteo_{file_name}", overwrite=True)
