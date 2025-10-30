@@ -31,8 +31,11 @@ Each type of data is processed through several levels of pre-processing:
 | Level | Description | Example |  
 
 | **Level 0** | Raw data, `.csv` files exported from the logger |
+
 | **Level 1** | Cleaned data and file converted to NetCDF file (“.nc”: used to store multidimensional data) |
+
 | **Level 2** | Calibrated and merged data, ready for analysis (addition of metadata, time alignment, hourly/daily averages)|
+
 (| **Level 3** *(optional)* | Interpreted or aggregated data for final analyses |)
 
 ### Notebook
