@@ -8,7 +8,7 @@ Online repository: https://github.com/tdoda/taney-monitoring-masterfieldcamp.git
 
 This project aims to study the thermal structure of Lake Taney (Valais, Switzerland) and its fluctuations in relation to significant water level variability.  The data were collected as part of the Master's Field Camp in Aquatic Science at the University of Lausanne from 4 to 6 June 2025 and are being used to analyse the physical and biogeochemical dynamics of the lake.
 
-##Github repository structure:
+## Github repository structure:
 
 
 The repository is organised so as to separate raw data, processing scripts and analysis notebooks.
@@ -58,3 +58,15 @@ to analyse only profiles after a specific time
 Have fun!
 
 JACOT-DESCOMBES Rachel (10/30/2025)
+
+### Licences
+
+### Authors
+Tomy Doda, Damien Bouffard
+
+2025: Huey Bickerstaffe, Noémie Bagnoud, Romain Du Bois, Pierre Herold, Rachel Jacot-Descombes, Justin Knight, Alejandro Perez Pardo, Margaux Python, Célestin Pythoud, Marco Zaninetti.
+
+2026: 
+
+
+###
