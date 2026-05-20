@@ -21,9 +21,9 @@ Contains the various datasets collected in the field, organised by type:
 
 ### Notes:
 
-The files corresponding to the periods studied are in ‘yearmonthday’ format, e.g. 20250603.
-The ‘EXO_...’ probes are to be disregarded. Only use the RBR probes. 
-The ‘HOBO_P’ file (pressure sensor) is empty. Disregard.
+The files corresponding to the periods studied are in "yearmonthday" format, e.g. 20250603.
+The "EXO_..." probes are to be disregarded. Only use the RBR probes. 
+The "HOBO_P" file (pressure sensor) is empty. Disregard.
 
 Each type of data is processed through several levels of pre-processing:
 
