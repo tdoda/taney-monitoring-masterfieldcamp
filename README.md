@@ -1,6 +1,6 @@
 # Taney_Monitoring_MasterFieldCamp
 
-Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne. (Change by Tomy)
+Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne.
 
 Online repository: https://github.com/tdoda/taney-monitoring-masterfieldcamp.git 
 
@@ -48,7 +48,7 @@ Each notebook is self-contained and documented so that it can be easily reused b
 ---
 
 ### Notes
-Manual notes, mooring diagrams, etc.
+Manual notes, mooring diagrams, logbook,  etc.
 
 ### Scripts
 
