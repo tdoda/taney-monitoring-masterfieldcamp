@@ -48,7 +48,7 @@ Each notebook is self-contained and documented so that it can be easily reused b
 ---
 
 ### Notes
-Manual notes, mooring diagrams, etc.
+Manual notes, mooring diagrams, logbook,  etc.
 
 ### Scripts
 
