@@ -10,7 +10,6 @@ This project aims to study the thermal structure of Lake Taney (Valais, Switzerl
 
 ## Github repository structure:
 
-
 The repository is organised so as to separate raw data, processing scripts and analysis notebooks.
 
 ### Data
@@ -20,11 +19,11 @@ Contains the various datasets collected in the field, organised by type:
 - **`Mooring/`** → data from sensors installed on the lake mooring
 - **`Profiles/`** → spot measurements of vertical profiles (temperature, oxygen, conductivity, etc.)
 
-Notes:
+### Notes:
 
-The files corresponding to the periods studied are in ‘yearmonthday’ format, e.g. 20250603.
-The ‘EXO_...’ probes are to be disregarded. Only use the RBR probes. 
-The ‘HOBO_P’ file (pressure sensor) is empty. Disregard.
+The files corresponding to the periods studied are in "yearmonthday" format, e.g. 20250603.
+The "EXO_..." probes are to be disregarded. Only use the RBR probes. 
+The "HOBO_P" file (pressure sensor) is empty. Disregard.
 
 Each type of data is processed through several levels of pre-processing:
 
