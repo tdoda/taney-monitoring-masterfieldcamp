@@ -1,6 +1,6 @@
 # Taney_Monitoring_MasterFieldCamp
 
-Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne.
+Monitoring of Lake Taney by the Aquatic Science Master students of the University of Lausanne. (Change by Tomy)
 
 Online repository: https://github.com/tdoda/taney-monitoring-masterfieldcamp.git 
 
