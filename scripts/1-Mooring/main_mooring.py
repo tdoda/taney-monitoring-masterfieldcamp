@@ -24,7 +24,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 date_campaign='20250604'
 #%% Setup paths
 
-mooring_data_folder='..\..\data\Mooring\HOBO_T'
+mooring_data_folder = os.path.join("..", "..", "data", "Mooring", "HOBO_T")
 input_folder=os.path.join(mooring_data_folder,date_campaign)
 meta_path=os.path.join(input_folder,"Level0","thermistors_"+date_campaign+".meta")
 
