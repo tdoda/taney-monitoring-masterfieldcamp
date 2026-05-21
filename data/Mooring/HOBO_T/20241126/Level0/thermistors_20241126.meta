@@ -1,0 +1,24 @@
+{
+    "filenames": ["0m.xlsx","2_5m.xlsx","5m.xlsx","7_5m.xlsx","10m.xlsx","12_5m.xlsx","15m.xlsx","17_5m.xlsx","20m.xlsx","25m.xlsx"],
+	"filetypes": ["hobo_T","hobo_T","hobo_T","hobo_T","hobo_T","hobo_T","hobo_T","hobo_T","hobo_T","hobo_T"],
+    "valid": [true,true,true,true,true,true,true,true,true,true],
+	"Depth (m)": [0,2.5,5,7.5,10,12.5,15,17.5,20,25],
+    "campaign": {
+        "Campaign Name": "Mooring Nicole Russo 20240910-20241126",
+        "Device": "HOBO Water Temperature Pro",
+        "Project Name": "",
+        "Person in charge": "Nicole Russo",
+        "Other people involved": "",
+        "Time of deployment": "2024-09-10 17:00:00",
+		"Time of retrieval": "2024-11-26 15:00:00",
+        "Time Zone device (UTC+)": 0,
+		"Time Zone local until 2024-10-27 03:00 (UTC+)": 2,
+		"Time Zone local after 2024-10-27 02:00 (UTC+)": 1,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "554039",
+        "Y Coordinate (CH1903)": "132828",
+		"Altitude (m)": "1409",
+        "Comment": "" 
+    }
+}

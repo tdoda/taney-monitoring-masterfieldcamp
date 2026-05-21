@@ -1,0 +1,27 @@
+{
+    "filename": "meteo_model_46_345857_6_842092_20240824_20250607.csv",
+    "valid": true,
+    "dataset": {
+        "Dataset Name": "Hourly averaged meteorological data from model reanalysis",
+        "Model": "COSMO (until 23.08.2024), ICON (from 24.08.2024)",
+        "Source of dataset": "MeteoSwiss",
+        "Starting time (UTC)": "2024-03-01 00:00:00",
+		"End time (UTC)": "2025-06-06 23:00:00",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "554076",
+        "Y Coordinate (CH1903)": "132894",
+		"Altitude (m)": "1409",
+        "Comment": "" 
+    },
+	"variables": {
+        "UTC_time": "UTC time [dd/mm/yyyy HH:MM]",
+        "T_2M [K]": "Air temperature at 2 m above ground [K]",
+		"T_2M [°C]": "Air temperature at 2 m above ground [°C]",
+		"U [m/s]": "Zonal wind speed from east to west at 10 m above ground [m/s]",
+		"V [m/s]": "Meridional wind speed from north to south at 10 m above ground [m/s]",
+		"GLOB [W/m2]": "Total (direct+diffuse) solar radiation reaching the surface [W/m2]",
+		"RELHUM_2M [%]": "Relative humidity at 2 m above ground [%]",
+		"PMSL [Pa]": "Atmospheric pressure adjusted to sea level [Pa]",
+		"CLCT [%]": "Total Cloud Cover [%]"
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "filename": "205750_20220804_0610.rsk",
+    "valid": true,
+    "campaign": {
+        "Campaign Name": "CTD profile",
+        "Device": "RBR Concerto",
+        "Serial No": "205750",
+        "Project Name": "",
+        "Person in charge": "Fabien Baerenbold",
+        "Other people involved": "",
+        "Date of measurement": "2022-07-28",
+        "Time Zone device (UTC+)": 0,
+        "Time Zone local (UTC+)": 2,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "Altitude (m)": "1409",
+        "General comment": ""
+    },
+    "profile": {
+        "Profile name": "P1",
+        "Time of measurement (local)": "12:00",
+        "X Coordinate (CH1903)": "",
+        "Y Coordinate (CH1903)": "",
+		"Latitude": "46.3458",
+        "Longitude": "6.4823",
+        "Start pressure (dbar)": "",
+        "End pressure (dbar)": "",
+        "Something broke": false,
+        "Something got lost": false,
+        "Something is strange": false,
+        "Battery is empty": false,
+        "Battery was replaced": false,
+        "Other comment": ""
+    }
+}

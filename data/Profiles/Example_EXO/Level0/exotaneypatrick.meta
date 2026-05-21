@@ -1,0 +1,21 @@
+{
+    "filenames": ["exotaneypatrick.csv"],
+	"filetypes": [".csv": "exo"],
+    "valid": [true],
+    "campaign": {
+        "Campaign Name": "Mooring Nicole Russo 20240315-20240527",
+        "Device": "HOBO Water Temperature Pro",
+        "Project Name": "",
+        "Person in charge": "Nicole Russo",
+        "Other people involved": "",
+        "Date": "5/24/2024 11:25:03",
+        "Time Zone device (UTC+)": 0,
+        "Time Zone local (UTC+)": 2,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "554039",
+        "Y Coordinate (CH1903)": "132828",
+		"Altitude (m)": "1409",
+        "Comment": "" 
+    }
+}

@@ -338,6 +338,6 @@ tags
 .renku/cache
 
 # Ignore all data
-data/*
-!data/
+data/**
+!data/**/
 !data/**/*.meta

@@ -1,0 +1,35 @@
+{
+    "filename": "66131_20250605_RBR6.rsk",
+    "valid": true,
+    "campaign": {
+        "Campaign Name": "CTD profile",
+        "Device": "RBR Concerto",
+        "Serial No": "66131",
+        "Project Name": "",
+        "Person in charge": "Alejandro",
+        "Other people involved": "Pierre, Huey",
+        "Date of measurement": "2025-06-05",
+        "Time Zone device (UTC+)": 0,
+        "Time Zone local (UTC+)": 2,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "Altitude (m)": "1409",
+        "General comment": ""
+    },
+    "profile": {
+        "Profile name": "R1",
+        "Time of measurement (local)": "16:11",
+        "X Coordinate (CH1903)": "553957",
+        "Y Coordinate (CH1903)": "138856",
+	"Latitude": "",
+        "Longitude": "",
+        "Start pressure (dbar)": "",
+        "End pressure (dbar)": "",
+        "Something broke": false,
+        "Something got lost": false,
+        "Something is strange": false,
+        "Battery is empty": false,
+        "Battery was replaced": false,
+        "Other comment": ""
+    }
+}
