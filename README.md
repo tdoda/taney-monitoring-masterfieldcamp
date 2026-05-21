@@ -4,7 +4,7 @@ Monitoring of Lake Taney by the Aquatic Science Master students of the Universit
 
 **Repository:** https://github.com/tdoda/taney-monitoring-masterfieldcamp.git
 
-> A guide on how to use Git collaboratively is provided in `Notes/Instructions_GIT`.
+> A guide on how to use Git collaboratively is provided in `Notes/Instructions_Git.pdf`.
 
 ---
 
@@ -71,7 +71,7 @@ Manual notes, mooring diagrams, logbook, etc.
 
 ## Data Storage & Workflow
 
-Due to file size limitations on GitHub, raw data files (`.rsk`, `.xlsx`) are not pushed to git (see `.gitignore` for details). All data are stored on **SwitchDrive**.
+Due to file size limitations on GitHub, raw data files (`.rsk`, `.xlsx`) are not pushed to git (see `.gitignore` for details). All data are stored on [**SwitchDrive**]( https://drive.switch.ch/index.php/s/yyV253N9xIICeSs).
 
 ### Uploading Data from the Field
 
