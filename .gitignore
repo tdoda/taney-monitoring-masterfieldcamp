@@ -339,3 +339,4 @@ tags
 
 # Ignore all data
 data/*
+!data/**/*.meta
