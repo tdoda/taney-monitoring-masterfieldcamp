@@ -8,10 +8,13 @@ from datetime import datetime, timezone
 from ctd import CTD
 from functions_ctd import create_file_list, copy_files, read_data, process_profiles, create_folder
 
+# Run script where it is located
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 #%% Specify field campaign here:
 
-date_campaign='20250605'
-date_min=datetime(2025,6,5,12,0,0) # Minimum device time
+date_campaign='20260520' # Date of the campaign (YYYYMMDD)
+date_min=datetime(2026,5,20,8,0,0) # Minimum device time
 
 # For RBR profiles:
 ctd_data_folder='..\..\data\Profiles\RBR_237207'

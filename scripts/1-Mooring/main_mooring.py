@@ -13,6 +13,9 @@ from thermistor import thermistor_series,thermistor_grid
 from datetime import datetime, timezone
 from functions_mooring import read_data, export, create_temp_grid, create_folder
 
+# Run script where it is located
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
 #%% Specify field campaign here:
 
 # date_campaign='20240527'
