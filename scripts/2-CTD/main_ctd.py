@@ -17,7 +17,8 @@ date_campaign='20260520' # Date of the campaign (YYYYMMDD)
 date_min=datetime(2026,5,20,8,0,0) # Minimum device time
 
 # For RBR profiles:
-ctd_data_folder='..\..\data\Profiles\RBR_237207'
+#ctd_data_folder='..\..\data\Profiles\RBR_237207'
+ctd_data_folder = os.path.join("..", "..", "data", "Profiles", "RBR_237207")
 extensions = [".rsk"]
 DO_umol=True # Do data is in umol/l and needs to be converted to mg/l
 
