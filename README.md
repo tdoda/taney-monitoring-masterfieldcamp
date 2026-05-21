@@ -10,7 +10,7 @@ Monitoring of Lake Taney by the Aquatic Science Master students of the Universit
 
 ## Introduction
 
-This project studies the thermal structure of Lake Taney (Valais, Switzerland) and its fluctuations in relation to significant water level variability. The data were collected as part of the Master's Field Camp in Aquatic Science at the University of Lausanne (4–6 June 2025) and are used to analyse the physical and biogeochemical dynamics of the lake.
+This project studies the thermal structure of Lake Taney (Valais, Switzerland) and its fluctuations in relation to significant water level variability. The data were collected as part of the Master's Field Camp in Aquatic Science at the University of Lausanne and are used to analyse the physical and biogeochemical dynamics of the lake. This student-led monitoring program started in June 2025.
 
 ---
 
