@@ -5,7 +5,7 @@ import logging
 import dateparser
 import numpy as np
 import pandas as pd
-import seawater as sw
+import gsw
 import netCDF4 as nc
 from copy import deepcopy
 from pyrsktools import RSK
@@ -453,7 +453,7 @@ def oxygen_saturation(T, S, altitude=372., lat=46.2, units="mgl"):
     mmHg_inHg = 25.3970886
     standard_pressure_sea_level = 29.92126
     standard_temperature_sea_level = 15 + 273.15
-    gravitational_acceleration = gr = sw.g(lat)
+    gravitational_acceleration = gr = gsw.grav(lat, 0)
     air_molar_mass = 0.0289644
     universal_gas_constant = 8.31447
     baro = (1. / mmHg_mb) * mmHg_inHg * standard_pressure_sea_level * np.exp(
@@ -491,7 +491,7 @@ def potential_temperature_sw(T, S, p, p_ref):
     pt : array_like
         potential temperature relative to PR [℃ (ITS-90)]
     """
-    return sw.ptmp(s=S,t=T,p=p,pr=p_ref)
+    return gsw.pt_from_t(s=S,t=T,p=p,pr=p_ref)
 
 def position_in_array(arr, value):
     for i in range(len(arr)):
