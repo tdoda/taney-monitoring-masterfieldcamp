@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import netCDF4
 from copy import deepcopy
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, time, timezone, timedelta, UTC
 from dateutil.relativedelta import relativedelta
 
 
@@ -65,8 +65,12 @@ def export(obj, folder, title, output_period="file", time_label="time", profile_
         data = obj.data
 
     time = data[time_label]
-    time_min = datetime.utcfromtimestamp(np.nanmin(time)).replace(tzinfo=timezone.utc)
-    time_max = datetime.utcfromtimestamp(np.nanmax(time)).replace(tzinfo=timezone.utc)
+    #time_min = datetime.utcfromtimestamp(np.nanmin(time)).replace(tzinfo=timezone.utc)
+    #time_max = datetime.utcfromtimestamp(np.nanmax(time)).replace(tzinfo=timezone.utc)
+    # New version:
+    time_min=datetime.fromtimestamp(np.nanmin(time),UTC)
+    time_max=datetime.fromtimestamp(np.nanmax(time),UTC)
+
 
     if output_period == "file":
         file_start = time_min

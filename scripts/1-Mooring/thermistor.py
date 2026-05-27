@@ -45,7 +45,10 @@ class thermistor_series:
         df = data_temp["data"]
         for variable in self.variables:
             if variable in df.columns:
-                self.data[variable] = np.array(df[variable].values).astype("float")
+                if variable == "time":
+                    self.data[variable] = np.array(df[variable].values).astype("float")/10**9
+                else:
+                    self.data[variable] = np.array(df[variable].values).astype("float")
             else:
                 self.data[variable] = np.array([np.nan] * len(df))
 

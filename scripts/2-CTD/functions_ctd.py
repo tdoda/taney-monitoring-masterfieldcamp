@@ -93,7 +93,8 @@ def read_rbr(file_path,DO_umol):
                 df[column_conversion[column]] = rsk.data[column]
         if DO_umol: # Convert from umol/l to mg/L
             df["DO_mg"]=df["DO_mg"]*32/1000
-        df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
+        #df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
+        df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') / 10 ** 9 # Conversion from ns to s (float)
 
         rsk.computeprofiles()
         downcast = rsk.getprofilesindices(direction="down")
@@ -491,7 +492,7 @@ def potential_temperature_sw(T, S, p, p_ref):
     pt : array_like
         potential temperature relative to PR [℃ (ITS-90)]
     """
-    return gsw.pt_from_t(s=S,t=T,p=p,pr=p_ref)
+    return gsw.pt_from_t(S,T,p,p_ref)
 
 def position_in_array(arr, value):
     for i in range(len(arr)):
