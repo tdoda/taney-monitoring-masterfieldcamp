@@ -1,0 +1,29 @@
+# Core packages
+numpy==1.23.5
+pandas==1.5.3 # <2.0 to use xarray 2022.11.0 
+scipy==1.9.3
+matplotlib==3.10.8
+
+# NetCDF / xarray / Excel
+netCDF4==1.7.4
+xarray==2022.11.0
+openpyxl==3.1.5
+
+# Other utilities
+PyYAML==6.0.3
+dateparser==1.2.0
+python-dateutil==2.9.0.post0
+
+# Oceanographic / scientific
+gsw==3.6.19
+envass==1.0.0
+cmocean==3.0.3
+pyRSKtools==1.1.1
+
+# Optional for Jupyter interactive plots
+notebook==7.2.2
+ipympl==0.9.7 # only if using `%matplotlib widget`
+
+
+
+
