@@ -13,6 +13,58 @@ Monitoring of Lake Taney by the Aquatic Science Master students of the Universit
 This project studies the thermal structure of Lake Taney (Valais, Switzerland) and its fluctuations in relation to significant water level variability. The data were collected as part of the Master's Field Camp in Aquatic Science at the University of Lausanne and are used to analyse the physical and biogeochemical dynamics of the lake. This student-led monitoring program started in June 2025.
 
 ---
+## Installation
+
+### 1. Python installation
+
+Python 3 is required to run the scripts. Three installation are possible:
+- Recommended option: download [Miniforge](https://github.com/conda-forge/miniforge). 
+- User-friendly option: download the [Anaconda distribution](https://www.anaconda.com/products/individual).
+- Classic option: download Python from the [official website](https://www.python.org/downloads/).
+
+### 2. Repository installation
+
+- If using GIT, clone the repository to your local machine using the command in Git Bash: 
+
+    ``` 
+    git clone  https://github.com/tdoda/taney-monitoring-masterfieldcamp.git 
+    ```
+ 
+    Or use the "clone" options in VS Code or Git Desktop.
+    Note that the repository will be copied to your current working directory.
+- Without GIT, just download the entire ZIP folder from https://github.com/tdoda/taney-monitoring-masterfieldcamp.git ("Code" > "Download ZIP") and extract it.
+
+### 3. Packages installation
+
+1. Open the terminal (e.g., Anaconda Prompt), and move to the `taney-monitoring-masterfieldcamp` repository.
+2. Create a new environment *taney-monitoring* and install the packages as follows:
+    - If using conda (Anaconda or Miniforge installation):
+        ```
+        conda env create -f environment.yml
+        conda activate taney-monitoring 
+        ```
+        It is also possible to install the packages from `requirements.txt` with pip instead:
+        ```
+        conda create -n taney-monitoring python=3.11
+        conda activate taney-monitoring
+        pip install -r requirements.txt
+        ```
+    - If using mamba (Anaconda or Miniforge installation):
+        ```
+        mamba env create -f environment.yml
+        mamba activate taney-monitoring 
+        ```
+    - If using pip (classic Python installation):
+        ```
+        python -m venv taney-monitoring  
+        # For Linux/macOS:     
+        source taney-monitoring /bin/activate 
+        # For Windows:
+        taney-monitoring\Scripts\activate   
+        pip install -r requirements.txt
+        ```
+
+---
 
 ## Repository Structure
 

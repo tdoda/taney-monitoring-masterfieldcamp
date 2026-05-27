@@ -5,7 +5,7 @@ import logging
 import dateparser
 import numpy as np
 import pandas as pd
-import seawater as sw
+import gsw
 import netCDF4 as nc
 from copy import deepcopy
 from pyrsktools import RSK
@@ -93,7 +93,8 @@ def read_rbr(file_path,DO_umol):
                 df[column_conversion[column]] = rsk.data[column]
         if DO_umol: # Convert from umol/l to mg/L
             df["DO_mg"]=df["DO_mg"]*32/1000
-        df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
+        #df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') // 10 ** 3
+        df["time"] = df["time"].dt.tz_localize('UTC').astype('int64') / 10 ** 9 # Conversion from ns to s (float)
 
         rsk.computeprofiles()
         downcast = rsk.getprofilesindices(direction="down")
@@ -453,7 +454,7 @@ def oxygen_saturation(T, S, altitude=372., lat=46.2, units="mgl"):
     mmHg_inHg = 25.3970886
     standard_pressure_sea_level = 29.92126
     standard_temperature_sea_level = 15 + 273.15
-    gravitational_acceleration = gr = sw.g(lat)
+    gravitational_acceleration = gr = gsw.grav(lat, 0)
     air_molar_mass = 0.0289644
     universal_gas_constant = 8.31447
     baro = (1. / mmHg_mb) * mmHg_inHg * standard_pressure_sea_level * np.exp(
@@ -491,7 +492,7 @@ def potential_temperature_sw(T, S, p, p_ref):
     pt : array_like
         potential temperature relative to PR [℃ (ITS-90)]
     """
-    return sw.ptmp(s=S,t=T,p=p,pr=p_ref)
+    return gsw.pt_from_t(S,T,p,p_ref)
 
 def position_in_array(arr, value):
     for i in range(len(arr)):
