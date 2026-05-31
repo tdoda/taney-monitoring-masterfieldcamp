@@ -1,0 +1,28 @@
+{
+    "filename": "Weather_data_20260521.csv",
+    "valid": true,
+    "dataset": {
+        "Dataset Name": "Daily meteorological data from the Taney weather station",
+        "Source of dataset": "Refuge du Grammont",
+        "Starting time (UTC)": "2024-10-01 12:00:00",
+		"End time (UTC)": "2026-05-21 12:00:00",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "553319",
+        "Y Coordinate (CH1903)": "132871",
+		"Altitude (m)": "1417",
+        "Comment": "" 
+    },
+	"variables": {
+        "Timestamp": "Number of seconds since 01.01.1970"
+		"Timezone : Europe/Zurich": "Date and time [dd/mm/yyyy HH:MM]",
+        "Temperature °C": "Air temperature [°C]",
+		"Humidity %": "Relative humidity [%]",
+		"CO2 ppm": "CO2 concentration [ppm]",
+		"Pressure Pa": "Atmospheric pressure [Pa]",
+		"Wind Angle °": "Wind direction from North [°]",
+		"Wind strength kmph": "Wind speed [km/h]",
+		"Gust Strength kmph": "Gust wind speed [km/h]",
+		"Gust Angle °": "Gust wind direction [°]",
+		"Rain mm": "Rainfall [mm]"
+    }
+}
