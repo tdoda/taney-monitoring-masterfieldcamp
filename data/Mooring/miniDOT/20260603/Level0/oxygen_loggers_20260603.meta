@@ -1,0 +1,23 @@
+{
+    "filenames": [""],
+	"filetypes": ["minidot"],
+    "valid": [true],
+	"Depth (m)": [19],
+    "campaign": {
+        "Campaign Name": "",
+        "Device": "miniDOT",
+        "Project Name": "",
+        "Person in charge": "",
+        "Other people involved": "",
+        "Time of deployment": "",
+		"Time of retrieval": "",
+        "Time Zone device (UTC+)": ,
+        "Time Zone local (UTC+)": ,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "",
+        "Y Coordinate (CH1903)": "",
+		"Altitude (m)": "1405",
+        "Comment": "" 
+    }
+}
