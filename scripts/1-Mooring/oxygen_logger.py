@@ -280,6 +280,7 @@ class oxygen_logger:
             'depth': self.depth,
             't_offset': str(self.t_offset)
         }
+        md_xr.update(self.GENERAL_ATTRS)
         ds = ds.assign_attrs(md_xr)
 
         return ds
