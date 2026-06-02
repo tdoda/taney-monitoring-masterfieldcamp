@@ -50,11 +50,11 @@
 		"People in charge of deployment": "Class of 2025 - SP25 Field and laboratory methods (II): Lakes and Streams",
 		"People in charge of retrieval": "",
         "Other people involved": "Tomy Doda, Damien Bouffard, M-E Perga",
-        "Time of deployment": "",
+        "Time of deployment": "2026-06-06 10:39:00",
 		"Time of retrieval": "",
         "Coordinate System": "CH1903 (Swiss Grid)",
-        "X Coordinate (CH1903)": "",
-        "Y Coordinate (CH1903)": "",
+        "X Coordinate (CH1903)": "554061",
+        "Y Coordinate (CH1903)": "132893",
         "Comment": "" 
     }
 }
