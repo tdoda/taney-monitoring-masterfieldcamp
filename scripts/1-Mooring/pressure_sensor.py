@@ -1,4 +1,4 @@
-### Class for processing oxygen logger data
+### Class for processing pressure sensor data
 
 # imports
 import json
@@ -8,7 +8,7 @@ import xarray as xr
 import warnings
 
 
-class oxygen_logger:
+class pressure_sensor:
     GENERAL_ATTRS = {
         "institution": "Unil",
         "source": "",
@@ -18,23 +18,13 @@ class oxygen_logger:
         "comment": "Monitoring data in Lake Taney performed by Aquatic Science Master students",
         "title": "Mooring Lake Taney"
     }
-    MD_PATH = '../../data/Mooring/miniDOT/{date}/Level0/oxygen_loggers_{date}.meta'
-    DPATH = '../../data/Mooring/miniDOT/{date}/'
-    COLS_DT_MINIDOT = ['UTC_Date_&_Time', 'Coordinated Universal Time']
-    COLS_INT_MINIDOT = ['Unix Timestamp']
-    COLS_FLOAT_MINIDOT = ['Battery', 'Temperature', 'Dissolved Oxygen', 'Dissolved Oxygen Saturation', 'Q']
-    COLS_MAP_MINIDOT = {'UTC_Date_&_Time': 'time'}
-    VARS_DROP_MINIDOT = ['Unix Timestamp', 'Coordinated Universal Time', 'Battery', 'Q']
-    VARS_MAP_MINIDOT = {
-        'Temperature': 'temp', 
-        'Dissolved Oxygen': 'do2_conc', 
-        'Dissolved Oxygen Saturation': 'do2_sat'
-    }
+    MD_PATH = '../../data/Mooring/HOBO_P/{date}/Level0/pressure_sensors_{date}.meta'
+    DPATH = '../../data/Mooring/HOBO_P/{date}/'
+    VARS_DROP_HOBO_P = []
+    VARS_MAP_HOBO_P = {}
     VAR_ATTRS = {
         'time': {'long_name': 'Coordinated Universal Time (UTC)'},
-        'do2_conc': {'units': 'mg/l', 'long_name': 'Dissolved Oxygen Concentration'},
-        'do2_sat': {'units': '%', 'long_name': 'Dissolved Oxygen Saturation'},
-        'temp': {'units': '°C', 'long_name': 'Temperature'},
+        'Press': {'units': 'dbar', 'long_name': 'Pressure'},
         'depth': {'units': 'm', 'long_name': 'Depth'},
         'serial_id': {'long_name': 'Serial ID'}
     }
@@ -42,16 +32,16 @@ class oxygen_logger:
 
     def __init__(self, date, idx, serial_id, t_offset=None):
         """
-        Initialize oxygen_logger object.
+        Initialize pressure_sensor object.
 
         Parameters
         ----------
         date : str
-            Date (YYYYMMDD) of oxygen logger retrieval.
+            Date (YYYYMMDD) of pressure sensor retrieval.
         idx : int
-            Index of oxygen logger in metadata file.
+            Index of pressure sensor in metadata file.
         serial_id : str
-            Serial number of oxygen logger.
+            Serial number of pressure sensor.
         t_offset : str
             Time offset from sensor clock to correct time (e.g., +/-HH:MM:SS).
         """
@@ -63,11 +53,11 @@ class oxygen_logger:
         self.md_file = self.locate_md_file()
         self.sensor = self.get_sensor_type()
         self.depth = self.get_depth()
-        self.dpath_L0, self.dpath_L1, self.dpath_L2, self.dpath_L3 = self.locate_data_dirs()    
+        self.dpath_L0, self.dpath_L1, self.dpath_L2, self.dpath_L3 = self.locate_data_dirs()
 
-    
+
     # ---------- Metadata ----------
-    
+        
     def locate_md_file(self):
         """
         Locate metadata file.
@@ -121,8 +111,8 @@ class oxygen_logger:
         md = self.open_md_file()
         
         return md['Depth (m)'][self.idx]
+        
     
-
     # ---------- Navigation ----------
 
     def locate_data_dirs(self):
@@ -154,71 +144,58 @@ class oxygen_logger:
         fpath_L0 : str
             Path to L0 data file.
         """
-        if self.sensor == 'minidot':
-            fpath_L0 = f'{self.dpath_L0}/7450-{self.serial_id}/Cat.txt'
+        md = self.open_md_file()
+
+        if self.sensor == 'hobo_p':
+            fpath_L0 = f'{self.dpath_L0}/{md["filenames"][self.idx]}'
         else:
-            raise NotImplementedError("Only minidot sensors are handled.")
+            raise NotImplementedError("Only hobo_p sensors are handled.")
         
         return fpath_L0
     
 
     # ---------- L0 to L1 ----------
     
-    def parse_minidot_L0(self, fpath_L0):
+    def parse_hobo_p_L0(self, fpath_L0):
         """
-        Parse raw (L0) data from Minidot oxygen logger.
+        Parse raw (L0) data from HOBO pressure sesnor.
 
         Parameters
         ----------
         fpath_L0 : str
-            File path to raw (L0) Minidot oxygen logger data.
+            File path to raw (L0) HOBO pressure sensor data.
 
         Returns
         -------
         data : pd.DataFrame
-            Data from Minidot oxygen logger.
+            Data from HOBO perssur sensor.
         """
-        with open(fpath_L0, 'r') as f:
-            lines = [x[:-1] for x in f if len(x.split(',')) > 1]
+        data = pd.read_csv(fpath_L0)
 
-        # extract column names
-        cols = [x.lstrip(' ') for x in lines[0].split(',')]
-
-        data = []
-        for line in lines[2:]:
-            data.append([x.lstrip(' ') for x in line.split(',')])
-        data = pd.DataFrame(data, columns=cols)
-
-        # cast to proper datatypes, map to time dimension
-        data[self.COLS_DT_MINIDOT] = data[self.COLS_DT_MINIDOT].apply(pd.to_datetime)
-        data[self.COLS_INT_MINIDOT] = data[self.COLS_INT_MINIDOT].astype(int)
-        data[self.COLS_FLOAT_MINIDOT] = data[self.COLS_FLOAT_MINIDOT].astype(float)
-        data = data.rename(columns=self.COLS_MAP_MINIDOT)
-
-        return data
+        raise NotImplementedError
     
 
     def parse_L0(self):
         """
-        Load raw (L0) oxygen logger data into xarray Dataset.
+        Load raw (L0) pressure sensor data into xarray Dataset.
 
         Returns
         -------
         ds : xr.Dataset
-            Dataset of data recorded by oxygen logger.
+            Dataset of data recorded by pressure sensor.
         """
         fpath_L0 = self.locate_file_L0()
 
-        if self.sensor == 'minidot':
-            data = self.parse_minidot_L0(fpath_L0)
+        if self.sensor == 'hobo_p':
+            data = self.parse_hobo_p_L0(fpath_L0)
         else:
-            raise NotImplementedError("Only minidot sensors are handled.")
+            raise NotImplementedError("Only hobo_p sensors are handled.")
         
         data = data.set_index('time')
         ds = xr.Dataset.from_dataframe(data)
 
         return ds
-
+    
 
     def organize_data_vars(self, ds):
         """
@@ -227,18 +204,18 @@ class oxygen_logger:
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data.
+            Pressure sensor data.
         
         Returns
         -------
         ds : xr.Dataset
-            Oxygen logger data with desired data variables.
+            Pressure sensor data with desired data variables.
         """
-        if self.sensor == 'minidot':
-            ds = ds.drop_vars(self.VARS_DROP_MINIDOT)
-            vars_map = {k: v for k, v in self.VARS_MAP_MINIDOT.items() if k in ds.data_vars}
+        if self.sensor == 'hobo_p':
+            ds = ds.drop_vars(self.VARS_DROP_HOBO_P)
+            vars_map = {k: v for k, v in self.VARS_MAP_HOBO_P.items() if k in ds.data_vars}
         else:
-            raise NotImplementedError('Only minidot sensors are handled.')
+            raise NotImplementedError('Only hobo_p sensors are handled.')
 
         return ds.rename_vars(vars_map)
     
@@ -251,12 +228,12 @@ class oxygen_logger:
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data.
+            Pressure sensor data.
 
         Returns
         -------
         ds : xr.Dataset
-            Oxygen logger data with attributes.
+            Pressure sensor data with attributes.
         """
         # add depth and serial id coordinates
         ds = ds.assign_coords(depth=self.depth, serial_id=self.serial_id)
@@ -283,20 +260,20 @@ class oxygen_logger:
 
         return ds
     
-    
+
     def derive_vars(self, ds):
         """
-        Process oxygen logger data to organize variables and assign attributes.
+        Process pressure sensor data to organize variables and assign attributes.
         
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data.
+            Pressure sensor data.
 
         Returns
         -------
         ds : xr.Dataset
-            Processed oxygen logger data.
+            Processed pressure sensor data.
         """
         ds = self.organize_data_vars(ds)
         ds = self.assign_attributes(ds)
@@ -311,12 +288,12 @@ class oxygen_logger:
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data.
+            Pressure sensor data.
 
         Returns
         -------
         ds : xr.Dataset
-            Oxygen logger data with corrected time dimension.
+            Pressure sensor data with corrected time dimension.
         
         """
         ds['time'] = ds['time'] + pd.to_timedelta(self.t_offset)
@@ -326,17 +303,17 @@ class oxygen_logger:
 
     def quality_assurance(self, ds):
         """
-        Run quality assurance on oxygen logger data.
+        Run quality assurance on pressure sensor data.
 
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data.
+            Pressure sensor data.
 
         Returns
         -------
         ds : xr.Dataset
-            Quality assured oxygen logger data.
+            Quality assured pressure sensor data.
         """
         # correct clock offset
         if self.t_offset:
@@ -347,12 +324,11 @@ class oxygen_logger:
         deploy = pd.to_datetime(md['campaign']['Time of deployment'])
         retrieve = pd.to_datetime(md['campaign']['Time of retrieval'])
         flag = (ds['time'] < deploy) | (ds['time'] > retrieve)
-        ds['DO_mg_qual'] = flag.astype(int)
-        ds['sat_qual'] = flag.astype(int)
+        ds['Press_qual'] = flag.astype(int)
 
         return ds
     
-    
+
     # ---------- L1 to L2 ----------
 
     def mask_data(self, ds):
@@ -362,15 +338,14 @@ class oxygen_logger:
         Parameters
         ----------
         ds : xr.Dataset
-            Oxygen logger data with QA flags.
+            Pressure sensor data with QA flags.
 
         Returns
         -------
         ds : xr.Dataset
-            Oxygen logger data with masked values.
+            Pressure sensor data with masked values.
         """
-        ds['DO_mg'] = ds['DO_mg'].where(ds['DO_mg_qual'] == 0)
-        ds['sat'] = ds['sat'].where(ds['sat_qual'] == 0)
+        ds['Press'] = ds['Press'].where(ds['Press_qual'] == 0)
 
         return ds
     
@@ -416,7 +391,7 @@ class oxygen_logger:
 
     def process(self):
         """
-        Process raw (L0) oxygen logger data.  Convert to xarray, generate QA flags, and write to .nc (L1).
+        Process raw (L0) pressure sensor data.  Convert to xarray, generate QA flags, and write to .nc (L1).
         Mask data and write to .nc (L2).
         """
         # L0 to L1

@@ -1,11 +1,11 @@
 {
-    "filenames": [""],
-	"filetypes": ["minidot"],
-    "valid": [true],
+    "filenames": ["", ""],
+	"filetypes": ["hobo_p", "hobo_p],
+    "valid": [true, true],
 	"Depth (m)": [],
     "campaign": {
         "Campaign Name": "",
-        "Device": "miniDOT",
+        "Device": "",
         "Project Name": "",
         "Person in charge": "",
         "Other people involved": "",
