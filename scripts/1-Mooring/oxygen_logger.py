@@ -349,6 +349,7 @@ class oxygen_logger:
         flag = (ds['time'] < deploy) | (ds['time'] > retrieve)
         ds['DO_mg_qual'] = flag.astype(int)
         ds['sat_qual'] = flag.astype(int)
+        ds['Temp_qual'] = flag.astype(int)
 
         return ds
     
@@ -371,6 +372,7 @@ class oxygen_logger:
         """
         ds['DO_mg'] = ds['DO_mg'].where(ds['DO_mg_qual'] == 0)
         ds['sat'] = ds['sat'].where(ds['sat_qual'] == 0)
+        ds['Temp'] = ds['Temp'].where(ds['Temp_qual'] == 0)
 
         return ds
     
