@@ -1,8 +1,8 @@
 {
-    "filenames": ["", ""],
+    "filenames": ["20598412_B_15.csv", "20598413_A_14.csv"],
 	"filetypes": ["hobo_p", "hobo_p],
     "valid": [true, true],
-	"Depth (m)": [],
+	"Depth (m)": [10, 10],
     "campaign": {
         "Campaign Name": "",
         "Device": "",

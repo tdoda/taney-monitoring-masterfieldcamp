@@ -26,15 +26,15 @@ class oxygen_logger:
     COLS_MAP_MINIDOT = {'UTC_Date_&_Time': 'time'}
     VARS_DROP_MINIDOT = ['Unix Timestamp', 'Coordinated Universal Time', 'Battery', 'Q']
     VARS_MAP_MINIDOT = {
-        'Temperature': 'temp', 
-        'Dissolved Oxygen': 'do2_conc', 
-        'Dissolved Oxygen Saturation': 'do2_sat'
+        'Temperature': 'Temp', 
+        'Dissolved Oxygen': 'DO_mg', 
+        'Dissolved Oxygen Saturation': 'sat'
     }
     VAR_ATTRS = {
         'time': {'long_name': 'Coordinated Universal Time (UTC)'},
-        'do2_conc': {'units': 'mg/l', 'long_name': 'Dissolved Oxygen Concentration'},
-        'do2_sat': {'units': '%', 'long_name': 'Dissolved Oxygen Saturation'},
-        'temp': {'units': '°C', 'long_name': 'Temperature'},
+        'DO_mg': {'units': 'mg/l', 'long_name': 'Dissolved Oxygen Concentration'},
+        'sat': {'units': '%', 'long_name': 'Dissolved Oxygen Saturation'},
+        'Temp': {'units': '°C', 'long_name': 'Temperature'},
         'depth': {'units': 'm', 'long_name': 'Depth'},
         'serial_id': {'long_name': 'Serial ID'}
     }

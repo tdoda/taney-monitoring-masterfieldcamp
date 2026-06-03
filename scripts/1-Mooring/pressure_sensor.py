@@ -20,11 +20,10 @@ class pressure_sensor:
     }
     MD_PATH = '../../data/Mooring/HOBO_P/{date}/Level0/pressure_sensors_{date}.meta'
     DPATH = '../../data/Mooring/HOBO_P/{date}/'
-    VARS_DROP_HOBO_P = []
-    VARS_MAP_HOBO_P = {}
     VAR_ATTRS = {
         'time': {'long_name': 'Coordinated Universal Time (UTC)'},
-        'Press': {'units': 'dbar', 'long_name': 'Pressure'},
+        'Press': {'units': 'Pa', 'long_name': 'Pressure'},
+        'Temp': {'units': '°C', 'long_name': 'Temperature'},
         'depth': {'units': 'm', 'long_name': 'Depth'},
         'serial_id': {'long_name': 'Serial ID'}
     }
@@ -170,9 +169,21 @@ class pressure_sensor:
         data : pd.DataFrame
             Data from HOBO perssur sensor.
         """
-        data = pd.read_csv(fpath_L0)
+        data = pd.read_csv(fpath_L0, skiprows=1)
+        
+        # drop columns
+        cols = data.columns
+        cols_keep = []
+        for col in cols:
+            if 'Date' in col or 'Pres' in col or 'Temp' in col:
+                cols_keep.append(col)
+        data = data[cols_keep]
 
-        raise NotImplementedError
+        # map columns
+        cols_map = dict(zip(cols_keep, ['time', 'Press', 'Temp']))
+        data = data.rename(columns=cols_map)
+
+        return data
     
 
     def parse_L0(self):
@@ -212,12 +223,9 @@ class pressure_sensor:
             Pressure sensor data with desired data variables.
         """
         if self.sensor == 'hobo_p':
-            ds = ds.drop_vars(self.VARS_DROP_HOBO_P)
-            vars_map = {k: v for k, v in self.VARS_MAP_HOBO_P.items() if k in ds.data_vars}
+            return ds
         else:
             raise NotImplementedError('Only hobo_p sensors are handled.')
-
-        return ds.rename_vars(vars_map)
     
     
     def assign_attributes(self, ds):
