@@ -20,6 +20,7 @@ class pressure_sensor:
     }
     MD_PATH = '../../data/Mooring/HOBO_P/{date}/Level0/pressure_sensors_{date}.meta'
     DPATH = '../../data/Mooring/HOBO_P/{date}/'
+    COLS_DT_HOBO_P = ['time']
     VAR_ATTRS = {
         'time': {'long_name': 'Coordinated Universal Time (UTC)'},
         'Press': {'units': 'Pa', 'long_name': 'Pressure'},
@@ -183,6 +184,8 @@ class pressure_sensor:
         cols_map = dict(zip(cols_keep, ['time', 'Press', 'Temp']))
         data = data.rename(columns=cols_map)
 
+        data[self.COLS_DT_HOBO_P] = data[self.COLS_DT_HOBO_P].apply(pd.to_datetime)
+
         return data
     
 
@@ -333,6 +336,7 @@ class pressure_sensor:
         retrieve = pd.to_datetime(md['campaign']['Time of retrieval'])
         flag = (ds['time'] < deploy) | (ds['time'] > retrieve)
         ds['Press_qual'] = flag.astype(int)
+        ds['Temp_qual'] = flag.astype(int)
 
         return ds
     
@@ -354,6 +358,7 @@ class pressure_sensor:
             Pressure sensor data with masked values.
         """
         ds['Press'] = ds['Press'].where(ds['Press_qual'] == 0)
+        ds['Temp'] = ds['Temp'].where(ds['Temp_qual'] == 0)
 
         return ds
     
