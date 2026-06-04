@@ -1,0 +1,23 @@
+{
+    "filenames": ["20598412_B_15.csv", "20598413_A_14.csv"],
+	"filetypes": ["hobo_p", "hobo_p],
+    "valid": [true, true],
+	"Depth (m)": [10, 10],
+    "campaign": {
+        "Campaign Name": "",
+        "Device": "",
+        "Project Name": "",
+        "Person in charge": "",
+        "Other people involved": "",
+        "Time of deployment": "",
+		"Time of retrieval": "",
+        "Time Zone device (UTC+)": ,
+        "Time Zone local (UTC+)": ,
+        "Lake": "Lake Taney",
+        "Coordinate System": "CH1903 (Swiss Grid)",
+        "X Coordinate (CH1903)": "",
+        "Y Coordinate (CH1903)": "",
+		"Altitude (m)": "1405",
+        "Comment": "" 
+    }
+}
