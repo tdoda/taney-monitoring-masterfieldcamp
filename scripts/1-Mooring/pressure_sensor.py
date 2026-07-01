@@ -20,11 +20,13 @@ class pressure_sensor:
     }
     MD_PATH = '../../data/Mooring/HOBO_P/{date}/Level0/pressure_sensors_{date}.meta'
     DPATH = '../../data/Mooring/HOBO_P/{date}/'
+    COLS_DT_HOBO_P = ['time']
     VAR_ATTRS = {
         'time': {'long_name': 'Coordinated Universal Time (UTC)'},
+        'abs_Press': {'units': 'Pa', 'long_name': 'Absolute Pressure'},
         'Press': {'units': 'Pa', 'long_name': 'Pressure'},
         'Temp': {'units': '°C', 'long_name': 'Temperature'},
-        'depth': {'units': 'm', 'long_name': 'Depth'},
+        'depth_md': {'units': 'm', 'long_name': 'Depth from metadata schematic'},
         'serial_id': {'long_name': 'Serial ID'}
     }
 
@@ -180,8 +182,10 @@ class pressure_sensor:
         data = data[cols_keep]
 
         # map columns
-        cols_map = dict(zip(cols_keep, ['time', 'Press', 'Temp']))
+        cols_map = dict(zip(cols_keep, ['time', 'abs_Press', 'Temp']))
         data = data.rename(columns=cols_map)
+
+        data[self.COLS_DT_HOBO_P] = data[self.COLS_DT_HOBO_P].apply(pd.to_datetime)
 
         return data
     
@@ -244,7 +248,7 @@ class pressure_sensor:
             Pressure sensor data with attributes.
         """
         # add depth and serial id coordinates
-        ds = ds.assign_coords(depth=self.depth, serial_id=self.serial_id)
+        ds = ds.assign_coords(depth_md=self.depth, serial_id=self.serial_id)
         
         # data variables
         for var, attrs in self.VAR_ATTRS.items():
@@ -260,7 +264,7 @@ class pressure_sensor:
             'retrieval': md['campaign']['Time of retrieval'],
             'sensor': self.sensor,
             'serial_id': self.serial_id,
-            'depth': self.depth,
+            'depth_md': self.depth,
             't_offset': str(self.t_offset)
         }
         md_xr.update(self.GENERAL_ATTRS)
@@ -269,7 +273,7 @@ class pressure_sensor:
         return ds
     
 
-    def derive_vars(self, ds):
+    def derive_vars(self, ds, air_pressure=85515):
         """
         Process pressure sensor data to organize variables and assign attributes.
         
@@ -277,12 +281,17 @@ class pressure_sensor:
         ----------
         ds : xr.Dataset
             Pressure sensor data.
+        air_pressure : float
+            Air pressure at Lac de Taney (~1405 m elevation).
 
         Returns
         -------
         ds : xr.Dataset
             Processed pressure sensor data.
         """
+        # subtract air pressure
+        ds['Press'] = ds['abs_Press'] - air_pressure
+
         ds = self.organize_data_vars(ds)
         ds = self.assign_attributes(ds)
 
@@ -333,7 +342,8 @@ class pressure_sensor:
         retrieve = pd.to_datetime(md['campaign']['Time of retrieval'])
         flag = (ds['time'] < deploy) | (ds['time'] > retrieve)
         ds['Press_qual'] = flag.astype(int)
-
+        ds['Temp_qual'] = flag.astype(int)
+        
         return ds
     
 
@@ -354,6 +364,7 @@ class pressure_sensor:
             Pressure sensor data with masked values.
         """
         ds['Press'] = ds['Press'].where(ds['Press_qual'] == 0)
+        ds['Temp'] = ds['Temp'].where(ds['Temp_qual'] == 0)
 
         return ds
     
