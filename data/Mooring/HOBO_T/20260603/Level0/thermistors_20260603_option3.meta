@@ -1,0 +1,176 @@
+{
+  "_README": "Metadata for the 2025-2026 Lake Taney thermistor campaign — option3 (pressure-derived dynamic depths). Two sub-products are built from this single .meta: option3A (dynamic depth axis: each thermistor has a time-varying depth corrected by delta_wl) and option3B (fixed depth axis: thermistor nominal depths used as interpolation nodes for cross-chain comparison). Both sub-products are restricted to the pressure-sensor window: 2025-06-06 -> 2026-01-18. Chains A and B are kept separate as in option2. NEVER hardcode a depth in any script. Depths for Buoy B thermistors are computed in-code as total_depth - raw_depth_value.",
+  "filenames": [
+    "Sensor_Number_2.csv",
+    "Sensor_Number_3.csv",
+    "Sensor_Number_4.csv",
+    "Sensor_Number_5.csv",
+    "Sensor_Number_6.csv",
+    "Sensor_Number_7.csv",
+    "Sensor_Number_8.csv",
+    "Sensor_Number_9.csv",
+    "Sensor_Number_10.csv"
+  ],
+  "filetypes": [
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T"
+  ],
+  "valid": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "sensor_numbers": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "sensor_references": [
+    "21723998",
+    "21723996",
+    "21723999",
+    "21724002",
+    "21723997",
+    "21712001",
+    "21723995",
+    "21723994",
+    "21724003"
+  ],
+  "chain": [
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "raw_depth_reference": [
+    "height_from_bottom",
+    "height_from_bottom",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface"
+  ],
+  "raw_depth_values": [
+    15.4,
+    17.5,
+    12.53,
+    10.01,
+    7.6,
+    5.62,
+    3.62,
+    1.62,
+    0.7
+  ],
+  "Depth (m)": [
+    15.6,
+    13.5,
+    12.53,
+    10.01,
+    7.6,
+    5.62,
+    3.62,
+    1.62,
+    0.7
+  ],
+  "mooring_config": "option3",
+  "total_depth": 31.0,
+  "pressure_sensors": [
+    {
+      "filename": "20598413_A_14.csv",
+      "filetype": "hobo_P",
+      "reference": "20598413",
+      "chain": "A",
+      "raw_depth_reference": "depth_from_surface",
+      "raw_depth_value": 14.11,
+      "depth_from_surface": 14.11,
+      "time_coverage": "2025-06-06 to 2026-01-18",
+      "timestamp_format": "MM.DD.YY HH:MM:SS AM/PM",
+      "timestamp_timezone": "GMT+00:00",
+      "note": "Absolute pressure (Pa) at 14.11 m depth on rope A. Used to derive gauge pressure and validate rope-A thermistor depths."
+    },
+    {
+      "filename": "20598412_B_15.csv",
+      "filetype": "hobo_P",
+      "reference": "20598412",
+      "chain": "B",
+      "raw_depth_reference": "height_from_bottom",
+      "raw_depth_value": 5.4,
+      "depth_from_surface": 25.6,
+      "time_coverage": "2025-06-06 to 2026-01-18",
+      "timestamp_format": "MM.DD.YY HH:MM:SS AM/PM",
+      "timestamp_timezone": "GMT+00:00",
+      "note": "Absolute pressure (Pa) at height_from_bottom=5.4 m on rope B (depth_from_surface = total_depth - 5.4 = 25.6 m). Used to validate rope-B thermistor depths."
+    }
+  ],
+  "water_level_file": {
+    "_note": "Canonical location: data/Mooring/HOBO_P/<campaign>/Level2/water_level_variation.csv (SwitchDrive). The path is built in-code by main_mooring.py from the campaign folder identifier — this block is documentation only and is NOT read by the pipeline.",
+    "columns": [
+      "date",
+      "time",
+      "delta_wl"
+    ],
+    "delta_wl_unit": "cm",
+    "delta_wl_reference": "variation around an arbitrary reference level; rebased to zero at deployment time by the pipeline",
+    "timestamp_timezone": "GMT+00:00"
+  },
+  "pressure_constants": {
+    "rho_water_kg_m3": 1000.0,
+    "g_m_s2": 9.81,
+    "P_atm_Pa": 85546.38,
+    "P_atm_note": "Atmospheric pressure at lake altitude (~1405 m a.s.l.), derived from ISA formula: 101325 * (1 - 2.25577e-5 * 1405)^5.25588. Used to compute gauge pressure from absolute pressure.",
+    "altitude_m": 1405
+  },
+  "time_window": {
+    "start": "2025-06-06 08:00:00",
+    "end": "2026-01-18 03:45:00",
+    "timezone": "GMT+00:00",
+    "note": "Window is constrained by the pressure sensor data availability. Thermistor L3 grids for option3 are truncated to this window. Timestamps are stored in local wall-clock (GMT+2 CEST or GMT+1 CET) in the thermistor pipeline; the GMT start/end above are converted to local wall-clock in-code before applying the cutoff.",
+    "start_local": "2025-06-06 10:00:00",
+    "end_local": "2026-01-18 04:45:00",
+    "end_local_note": "2026-01-18 03:45 GMT = 04:45 CET (UTC+1 in January)"
+  },
+  "campaign": {
+    "Time of deployment": "2025-06-06 10:39:00",
+    "Time of retrieval": "2026-06-03 16:30:00",
+    "retrieval_time_status": "PROVISIONAL - confirm against field logbook.",
+    "X Coordinate (CH1903)": "554061",
+    "Y Coordinate (CH1903)": "132893",
+    "Altitude (m)": "1405",
+    "timezone_note": "Thermistor timestamps are local civil time WITH daylight saving applied (naive wall-clock). Pressure and water_level timestamps are GMT+00:00 and are converted to local wall-clock in-code before merging. DST transition 26/10/2025: +2h before, +1h after.",
+    "failed_sensors": {
+      "sensor_number": 1,
+      "reference": "21724000",
+      "chain": "B",
+      "height_from_bottom": 11.4,
+      "depth_from_surface": 19.6,
+      "reason": "Hardware failure, no data recorded. Bottom 15.4 m of the water column (15.6-31 m) has no thermistor coverage: document as a monitoring gap."
+    }
+  }
+}
