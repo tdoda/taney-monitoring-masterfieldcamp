@@ -1,7 +1,8 @@
 {
     "filename": "Weather_data_20260521.csv",
+    "filetypes": ["netatmo"],
     "valid": true,
-    "dataset": {
+    "campaign": {
         "Dataset Name": "Daily meteorological data from the Taney weather station",
         "Source of dataset": "Refuge du Grammont",
         "Starting time (UTC)": "2024-10-01 12:00:00",
@@ -13,7 +14,7 @@
         "Comment": "" 
     },
 	"variables": {
-        "Timestamp": "Number of seconds since 01.01.1970"
+        "Timestamp": "Number of seconds since 01.01.1970",
 		"Timezone : Europe/Zurich": "Date and time [dd/mm/yyyy HH:MM]",
         "Temperature °C": "Air temperature [°C]",
 		"Humidity %": "Relative humidity [%]",
