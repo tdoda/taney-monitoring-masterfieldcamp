@@ -15,28 +15,11 @@ import pandas as pd
 import xarray as xr
 from datetime import datetime, timezone
 
-# ── Run script where it is located ───────────────────────────────────────────
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
-
-# =============================================================================
-#%% CONFIGURATION — modify here only
-# =============================================================================
-
-date_campaign = "20260604"
-
-# Paths
-base_folder   = r"C:\Users\Quentin\Desktop\Geoscience\PREMIERE MASTER\projet_camp_062026"
-input_file    = os.path.join(base_folder, "sonar_deeper_bathymetric_level0_2026.csv")
-
-# Transect endpoints (start = hydropower outflow, end = cliff CTD)
-LAT_START, LON_START = 46.34453798644245, 6.841974053531885
-LAT_END,   LON_END   = 46.346515654586256, 6.841558394953608
-
-# Time crop
-TIME_END = pd.Timestamp("2026-06-04 12:30:00", tz="Europe/Zurich")
-
-# Smoothing resolution
-BIN_SIZE_M = 1.0
+# NOTE: date_campaign, base_folder, transect endpoints, TIME_END and
+# BIN_SIZE_M are configured in bathymetric_main.py, which is the only
+# entry point that should be run. They used to be duplicated here as dead
+# code (never read by any function below); removed to avoid the two files
+# silently drifting apart if only one copy gets edited.
 
 # CTD deployment times (local time UTC+2)
 CTD_STATIONS = {

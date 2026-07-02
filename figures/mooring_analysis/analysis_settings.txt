@@ -1,0 +1,11 @@
+Mooring analysis figure export
+==============================
+
+Analysis status: 2026 option: chainA | miniDOT bottom sensor: YES
+Selected 2026 option: chainA
+miniDOT used as bottom sensor: True
+Retrieval cutoff 2026: 2026-06-03 12:00:00
+Stratification threshold: 1.00 °C
+Stratification minimum duration: 48 h
+Ice-on threshold: 0.10 °C
+Ice-off threshold: 0.00 °C
