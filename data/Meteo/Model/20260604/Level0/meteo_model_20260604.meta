@@ -1,0 +1,28 @@
+{
+    "filename": "icon_46_345857_6_842092_20250601_20260604.csv",
+    "filetypes": ["icon"],
+    "valid": true,
+    "campaign": {
+        "Dataset Name": "Meteorological model data for Lake Taney",
+        "Source of dataset": "ICON weather model",
+        "Starting time (UTC)": "2025-06-01 00:00:00",
+        "End time (UTC)": "2026-06-03 23:00:00",
+        "Time of deployment": "2025-06-01 00:00:00",
+        "Time of retrieval": "2026-06-03 23:00:00",
+        "Coordinate System": "WGS84",
+        "Longitude": "6.842092",
+        "Latitude": "46.345857",
+        "Altitude (m)": "",
+        "Comment": "Meteorological model data extracted for the Lake Taney area."
+    },
+    "variables": {
+        "time": "Date and time in UTC",
+        "T_2M": "Air temperature at 2 m [K]",
+        "U": "Eastward wind component [m/s]",
+        "V": "Northward wind component [m/s]",
+        "GLOB": "Global radiation [W/m2]",
+        "RELHUM_2M": "Relative humidity at 2 m [%]",
+        "PMSL": "Pressure reduced to mean sea level [Pa]",
+        "CLCT": "Total cloud cover [%]"
+    }
+}

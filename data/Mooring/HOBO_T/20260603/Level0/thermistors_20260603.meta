@@ -1,0 +1,121 @@
+{
+  "_README": "Metadata for the 2025-2026 Lake Taney thermistor campaign (new campaign, CSV files). Config 'option1' = single unified depth axis across the 9 functional sensors. This file is the single source of truth for depth assignment: NEVER hardcode a depth in any script. Sensor 1 (21724000) failed (hardware) and is intentionally ABSENT from all lists below; it is documented under campaign.failed_sensors only. Depths for Buoy B sensors are computed in-code as total_depth - raw_depth_value; the 'Depth (m)' values stored here are pre-computed with total_depth=31.0 m and must be regenerated if total_depth changes (Option 3 pressure calibration).",
+  "filenames": [
+    "Sensor_Number_2.csv",
+    "Sensor_Number_3.csv",
+    "Sensor_Number_4.csv",
+    "Sensor_Number_5.csv",
+    "Sensor_Number_6.csv",
+    "Sensor_Number_7.csv",
+    "Sensor_Number_8.csv",
+    "Sensor_Number_9.csv",
+    "Sensor_Number_10.csv"
+  ],
+  "filetypes": [
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T",
+    "csv_T"
+  ],
+  "valid": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "sensor_numbers": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "sensor_references": [
+    "21723998",
+    "21723996",
+    "21723999",
+    "21724002",
+    "21723997",
+    "21712001",
+    "21723995",
+    "21723994",
+    "21724003"
+  ],
+  "chain": [
+    "B",
+    "B",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A",
+    "A"
+  ],
+  "raw_depth_reference": [
+    "height_from_bottom",
+    "height_from_bottom",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface",
+    "depth_from_surface"
+  ],
+  "raw_depth_values": [
+    15.4,
+    17.5,
+    12.53,
+    10.01,
+    7.6,
+    5.62,
+    3.62,
+    1.62,
+    0.7
+  ],
+  "Depth (m)": [
+    15.6,
+    13.5,
+    12.53,
+    10.01,
+    7.6,
+    5.62,
+    3.62,
+    1.62,
+    0.7
+  ],
+  "mooring_config": "option1",
+  "total_depth": 31.0,
+  "campaign": {
+    "Time of deployment": "2025-06-06 10:39:00",
+    "Time of retrieval": "2026-06-03 16:30:00",
+    "retrieval_time_status": "PROVISIONAL - confirm against field logbook. Data ends ~16:53-17:01 on 2026-06-03; logger host-connect/offload events appear from 16:38, so 16:30 is a conservative cut placing the last out-of-water minutes outside the valid window.",
+    "X Coordinate (CH1903)": "554061",
+    "Y Coordinate (CH1903)": "132893",
+    "Altitude (m)": "1405",
+    "timezone_note": "Logger timestamps are local civil time WITH daylight saving applied (column header 'Date-Time (CEST)' is a misnomer across the CET period). Format is MM/DD/YYYY HH:MM:SS. The pipeline keeps the naive wall-clock as the time axis (no explicit UTC offset), consistent with the HOBO reader and with these deployment/retrieval strings.",
+    "failed_sensors": {
+      "sensor_number": 1,
+      "reference": "21724000",
+      "chain": "B",
+      "height_from_bottom": 11.4,
+      "depth_from_surface": 19.6,
+      "reason": "Hardware failure, no data recorded. Bottom 15.4 m of the water column (15.6-31 m) has no temperature coverage: document as a monitoring gap."
+    }
+  }
+}
