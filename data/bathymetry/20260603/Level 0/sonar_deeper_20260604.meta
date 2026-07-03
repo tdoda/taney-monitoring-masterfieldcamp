@@ -1,0 +1,34 @@
+{
+    "campaign": {
+        "name": "T2 transversal transect",
+        "date": "2026-06-04",
+        "lake": "Lac de Taney",
+        "time_start": "2026-06-04 11:27:05",
+        "time_end": "2026-06-04 12:29:59",
+        "operator": "Quentin Noël",
+        "institution": "PREMIERE MASTER — Geoscience field camp 2026"
+    },
+    "instrument": {
+        "name": "Deeper Smart Sonar Pro+ 2",
+        "model": "A2AD",
+        "sampling_depth_hz": 10,
+        "sampling_gps_sec": "10-20"
+    },
+    "transect": {
+        "lat_start": 46.34453798644245,
+        "lon_start": 6.841974053531885,
+        "lat_end": 46.346515654586256,
+        "lon_end": 6.841558394953608,
+        "length_m": 222,
+        "bin_size_m": 1.0
+    },
+    "processing": {
+        "time_crop": "2026-06-04 12:30:00",
+        "timezone": "Europe/Zurich"
+    },
+    "filenames": {
+        "level0": "sonar_deeper_bathymetric_level0_2026.csv",
+        "level1": "sonar_deeper_bathymetric_level1_20260604.nc",
+        "level2": "sonar_deeper_bathymetric_level2_20260604.nc"
+    }
+}
